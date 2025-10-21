@@ -40,3 +40,25 @@ app.get('/api/mahasiswa', (req, res) => {
         res.json(results);
     });
 }); 
+
+
+ app.post('/api/mahasiswa', (req, res) => {
+    const { nama, nim, kelas, prodi } = req.body;
+
+    if (!nama || !nim || !kelas || !prodi) {
+        return res.status(400).json({ error: 'Semua wajib diisi' });  
+    }
+
+    db.query(
+        'INSERT INTO mahasiswa (nama, nim, kelas, prodi) VALUES (?, ?, ?, ?)',
+        [nama, nim, kelas, prodi],
+        (err, results) => {
+            if (err) {
+                console.error('Error executing query:', err);
+                res.status(500).json({ error: 'Database Error' });
+                return;
+            }
+            res.status(201).json({ message: 'Mahasiswa created successfully' });
+        }
+    );
+});
