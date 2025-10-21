@@ -1,3 +1,4 @@
+const e = require('express');
 const express = require('express');
 let mysql = require('mysql2');
 const app = express();
@@ -28,3 +29,14 @@ db.connect((err) => {
   }
   console.log('Connection successfully');
 });
+
+app.get('/api/mahasiswa', (req, res) => {
+    db.query('SELECT * FROM mahasiswa', (err, results) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+        res.json(results);
+    });
+}); 
