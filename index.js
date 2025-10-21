@@ -17,5 +17,14 @@ const db = mysql.createConnection({
   host: 'localhost',
   user : 'root',
   password : 'Ar-ray04',
-  database : 'biodata'
+  database : 'biodata',
+  port : 3309
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to the database:', err);
+    return;
+  }
+  console.log('Connection successfully');
 });
